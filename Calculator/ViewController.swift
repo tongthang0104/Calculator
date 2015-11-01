@@ -10,8 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: Properties
     
-    let displayLabel = UILabel()
+    var displayLabel = UILabel()
+    
+    var isInTheMiddleOfTyping = false
+    
+    var displayValue: Float {
+        get {
+            let valueDisplay = displayLabel.text ?? "0"
+            return (valueDisplay as NSString).floatValue
+            
+        } set {
+            isInTheMiddleOfTyping = false
+            displayLabel.text = "\(newValue)"
+            
+        }
+    }
+    
+    
+    var stack = Stack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +44,7 @@ class ViewController: UIViewController {
         self.view.addSubview(displayLabel)
         displayLabel.translatesAutoresizingMaskIntoConstraints = false
         
-       var constraint = NSLayoutConstraint(item: displayLabel, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
+        var constraint = NSLayoutConstraint(item: displayLabel, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
         
         constraint = NSLayoutConstraint(item: displayLabel, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
@@ -53,12 +71,13 @@ class ViewController: UIViewController {
             
             //Font size
             button.titleLabel?.font = UIFont.systemFontOfSize(25)
-
+            
             
             self.view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
             
             numberButtonArray.append(button)
+            button.addTarget(self, action: "appendDigit:", forControlEvents: .TouchUpInside)
             
         }
         
@@ -86,7 +105,11 @@ class ViewController: UIViewController {
             button.translatesAutoresizingMaskIntoConstraints = false
             
             operationButtonArray.append(button)
+            
         }
+        
+        //MARK: Implement Buttion Action
+        operationButtonArray[3].addTarget(self, action: "enter", forControlEvents: .TouchUpInside)
         
         //MARK: Constraint
         
@@ -145,7 +168,7 @@ class ViewController: UIViewController {
         view.addConstraint(constraint)
         
         // Third Row
-
+        
         constraint = NSLayoutConstraint(item: numberButtonArray[1], attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
         
@@ -171,7 +194,7 @@ class ViewController: UIViewController {
         constraint = NSLayoutConstraint(item: operationButtonArray[2], attribute: .Top, relatedBy: .Equal, toItem: operationButtonArray[1], attribute: .Bottom, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
         
-        // Fourth Row 
+        // Fourth Row
         
         constraint = NSLayoutConstraint(item: numberButtonArray[0], attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
@@ -199,36 +222,36 @@ class ViewController: UIViewController {
         
         constraint = NSLayoutConstraint(item: operationButtonArray[4], attribute: .Top, relatedBy: .Equal, toItem:operationButtonArray[2], attribute: .Bottom, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
-
+        
         constraint = NSLayoutConstraint(item: operationButtonArray[4], attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
-
-//        let newNumberButtonArray = [numberButtonArray, operationButtonArray[3]]
-//        for button in newNumberButtonArray {
-//            
-//            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
-//            view.addConstraint(constraint)
-//    
-//            constraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: 0)
-//           view.addConstraint(constraint)
-//            
-//        }
-//        for button in operationButtonArray {
-//            
-//            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: 100)
-//            button.addConstraint(constraint)
-//            
-//            constraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: 100)
-//            button.addConstraint(constraint)
-//        }
         
-     let heightArray = [numberButtonArray[0], numberButtonArray[1], numberButtonArray[2], numberButtonArray[3], numberButtonArray[4], numberButtonArray[5], numberButtonArray[6], numberButtonArray[8], numberButtonArray[9], operationButtonArray[0], operationButtonArray[1], operationButtonArray[2], operationButtonArray [3] ,operationButtonArray[4]]
-    
-    for button in heightArray {
-        let heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
-        view.addConstraint(heightConstraint)
+        //        let newNumberButtonArray = [numberButtonArray, operationButtonArray[3]]
+        //        for button in newNumberButtonArray {
+        //
+        //            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
+        //            view.addConstraint(constraint)
+        //
+        //            constraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: 0)
+        //           view.addConstraint(constraint)
+        //
+        //        }
+        //        for button in operationButtonArray {
+        //
+        //            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: 100)
+        //            button.addConstraint(constraint)
+        //
+        //            constraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: 100)
+        //            button.addConstraint(constraint)
+        //        }
+        
+        let heightArray = [numberButtonArray[0], numberButtonArray[1], numberButtonArray[2], numberButtonArray[3], numberButtonArray[4], numberButtonArray[5], numberButtonArray[6], numberButtonArray[8], numberButtonArray[9], operationButtonArray[0], operationButtonArray[1], operationButtonArray[2], operationButtonArray [3] ,operationButtonArray[4]]
+        
+        for button in heightArray {
+            let heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
+            view.addConstraint(heightConstraint)
         }
-
+        
         let widthArray = [numberButtonArray[7],numberButtonArray[1], numberButtonArray[2], numberButtonArray[3], numberButtonArray[4], numberButtonArray[5], numberButtonArray[6], numberButtonArray[8], numberButtonArray[9], operationButtonArray[0], operationButtonArray[1], operationButtonArray[2], operationButtonArray [3] ,operationButtonArray[4]]
         
         for button in widthArray {
@@ -236,4 +259,72 @@ class ViewController: UIViewController {
             view.addConstraint(widthConstraint)
         }
     }
+    
+    //MARK: Function
+    func appendDigit(button: UIButton) {
+        
+        
+        guard let digit = button.currentTitle else {return}
+        
+        if isInTheMiddleOfTyping {
+            let displayText = displayLabel.text ?? ""
+                displayLabel.text = displayText + digit
+            
+        } else {
+            displayLabel.text = digit
+            isInTheMiddleOfTyping = true
+            
+        }
+    }
+    
+    func enter() {
+        isInTheMiddleOfTyping = false
+        stack.push(displayValue)
+        stack.pop()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
