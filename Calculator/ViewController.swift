@@ -26,8 +26,6 @@ class ViewController: UIViewController {
         self.view.addSubview(displayLabel)
         displayLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
        var constraint = NSLayoutConstraint(item: displayLabel, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
         
@@ -39,8 +37,6 @@ class ViewController: UIViewController {
         
         constraint = NSLayoutConstraint(item: displayLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 120)
         displayLabel.addConstraint(constraint)
-        
-
         
         //MARK: 0 - 9 Button
         
@@ -86,17 +82,13 @@ class ViewController: UIViewController {
             //Font size
             button.titleLabel?.font = UIFont.systemFontOfSize(25)
             
-            
-            
             self.view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
-            
             
             operationButtonArray.append(button)
         }
         
         //MARK: Constraint
-        
         
         // Top Row
         
@@ -153,8 +145,7 @@ class ViewController: UIViewController {
         view.addConstraint(constraint)
         
         // Third Row
-        
-        
+
         constraint = NSLayoutConstraint(item: numberButtonArray[1], attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
         
@@ -211,13 +202,8 @@ class ViewController: UIViewController {
 
         constraint = NSLayoutConstraint(item: operationButtonArray[4], attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
         view.addConstraint(constraint)
-        
-        
-//        
+
 //        let newNumberButtonArray = [numberButtonArray, operationButtonArray[3]]
-//        
-    
-        
 //        for button in newNumberButtonArray {
 //            
 //            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
@@ -227,7 +213,6 @@ class ViewController: UIViewController {
 //           view.addConstraint(constraint)
 //            
 //        }
-        
 //        for button in operationButtonArray {
 //            
 //            constraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: 100)
@@ -235,8 +220,6 @@ class ViewController: UIViewController {
 //            
 //            constraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: 100)
 //            button.addConstraint(constraint)
-//        
-//        
 //        }
         
      let heightArray = [numberButtonArray[0], numberButtonArray[1], numberButtonArray[2], numberButtonArray[3], numberButtonArray[4], numberButtonArray[5], numberButtonArray[6], numberButtonArray[8], numberButtonArray[9], operationButtonArray[0], operationButtonArray[1], operationButtonArray[2], operationButtonArray [3] ,operationButtonArray[4]]
@@ -245,21 +228,12 @@ class ViewController: UIViewController {
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: numberButtonArray[7], attribute: .Height, multiplier: 1, constant: 0)
         view.addConstraint(heightConstraint)
         }
-   
-        
+
         let widthArray = [numberButtonArray[7],numberButtonArray[1], numberButtonArray[2], numberButtonArray[3], numberButtonArray[4], numberButtonArray[5], numberButtonArray[6], numberButtonArray[8], numberButtonArray[9], operationButtonArray[0], operationButtonArray[1], operationButtonArray[2], operationButtonArray [3] ,operationButtonArray[4]]
         
         for button in widthArray {
             let widthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 0.25, constant: 0.0)
             view.addConstraint(widthConstraint)
-//
-    
-    
-    
         }
-    
-    
-        
     }
-    
 }

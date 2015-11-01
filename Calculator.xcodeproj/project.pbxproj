@@ -13,6 +13,7 @@
 		013FE7BF1BE2B76700C212E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013FE7BD1BE2B76700C212E9 /* LaunchScreen.storyboard */; };
 		013FE7CA1BE2B76700C212E9 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013FE7C91BE2B76700C212E9 /* CalculatorTests.swift */; };
 		013FE7D51BE2B76700C212E9 /* CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013FE7D41BE2B76700C212E9 /* CalculatorUITests.swift */; };
+		DED168761BE5C9A4000E8F24 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED168751BE5C9A4000E8F24 /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		013FE7D01BE2B76700C212E9 /* CalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		013FE7D41BE2B76700C212E9 /* CalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorUITests.swift; sourceTree = "<group>"; };
 		013FE7D61BE2B76700C212E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DED168751BE5C9A4000E8F24 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				013FE7B41BE2B76700C212E9 /* AppDelegate.swift */,
 				013FE7B61BE2B76700C212E9 /* ViewController.swift */,
+				DED168751BE5C9A4000E8F24 /* Stack.swift */,
 				013FE7BB1BE2B76700C212E9 /* Assets.xcassets */,
 				013FE7BD1BE2B76700C212E9 /* LaunchScreen.storyboard */,
 				013FE7C01BE2B76700C212E9 /* Info.plist */,
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				013FE7B71BE2B76700C212E9 /* ViewController.swift in Sources */,
+				DED168761BE5C9A4000E8F24 /* Stack.swift in Sources */,
 				013FE7B51BE2B76700C212E9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
