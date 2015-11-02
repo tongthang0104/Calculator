@@ -111,6 +111,11 @@ class ViewController: UIViewController {
         //MARK: Implement Buttion Action
         operationButtonArray[3].addTarget(self, action: "enter", forControlEvents: .TouchUpInside)
         
+        operationButtonArray[0].addTarget(self, action: "operate:", forControlEvents: .TouchUpInside)
+        operationButtonArray[1].addTarget(self, action: "operate:", forControlEvents: .TouchUpInside)
+        operationButtonArray[2].addTarget(self, action: "operate:", forControlEvents: .TouchUpInside)
+        operationButtonArray[4].addTarget(self, action: "operate:", forControlEvents: .TouchUpInside)
+        
         //MARK: Constraint
         
         // Top Row
@@ -280,51 +285,37 @@ class ViewController: UIViewController {
     func enter() {
         isInTheMiddleOfTyping = false
         stack.push(displayValue)
-        stack.pop()
+        stack.log()
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func operate(button: UIButton) {
+        
+        guard let operation = button.currentTitle else {return}
+        
+        if isInTheMiddleOfTyping  {
+            enter()
+        }
+        
+        if stack.count()  >= 2 {
+            let float1 = stack.pop()
+            let float2 = stack.pop()
+            
+            switch operation {
+                
+            case "/":
+                displayValue = float2 / float1
+            case "*":
+                displayValue = float2 * float1
+            case "-":
+                displayValue = float2 - float1
+            case "+":
+                displayValue = float2 + float1
+            default:
+                stack.push(float1)
+                stack.push(float2)
+            }
+            enter()
+        }
+    }
 }
